@@ -192,3 +192,146 @@ re.findall("a..x",'adsfaeyxssklg')
 re.findall("^a..f",'adsfaeyxssklg')
 #  $结尾
 re.findall("s..g$",'adsfaeyxssklg')
+#{},{0,6}={6}后面的x贪婪匹配0到6个，取6个;
+re.findall("alex{0,6}","alalexxxxxxx")
+#因为？是惰性匹配，*最少为0个，所以alex中x为0个;+是惰性的后面就一个，？是惰性的后面0个
+re.findall("alex*?","alexxbc")#输出ale
+re.findall("alex+?","alexxbc")#输出alex，因为+是1或者无穷个，所以有一个x
+#字符集[]的用法,[.()]其中[]中的内容为普通内容
+re.findall("www[oldboy baidu]","wwwbaidu")
+re.findall("x[yz]","xyaabbxz")#输出xy和xz，[yz]是字符集，前面的xz和xy两个去匹配后面的字符串
+re.findall("x[a-z]","abxy")#输出xy，a-z中的字母都符合
+print (eval("2+3*3"))#输出11
+re.findall("\([^()]*\)","12+(34*6+2-5*(2-1))")
+#(前面加\后\(就不是元字符了，首先匹配一个\(和\)，然后用字符集[^()],然后先算（）里面的()计算2-1，最后在后面加一个*
+#\反斜线的功能是转义的
+#所有的大写和小写刚好是相反的意思\D代表非数字,\s代表取空白space的意思，而\S刚好取出space空白之外的东西
+#\b匹配特殊的边界符如：#$空格等符号#
+re.findall(r"I\b","hello I am")#因为I后面有个空格，直接I匹配不出I；前面r的左右，\\b的作用等于r\b,  r字符串中的内容不做任何转义，\b就是不尽兴转义，re认识\b所以执行
+#反斜线
+#re模块的分组|，管道符是或的作用
+re.findall(r"ka|b","asbskasg")#输出ka
+re.findall(r"ka|b","asbskbsg")#输出k
+re.findall("(abc)*","abcabcabc")
+#另一种分组形式
+re.findall("(?P<name>\w+)","abccc")
+#search方法，与findall有一定的区别，：findall将能匹配的结果全部返回，而search只是将第一个结果返回
+re.search("\d+","sdfa34fs5")#search返回的是一个对象；需要通过group方法返回
+re.search("\d+","sdfa34fs5").group()
+
+re.search("\d(5)","sdfa34fs5")#后面没有5个数字，所以什么都不返回
+re.search("[a-z]+","alex36ly18").group()#只输出alex
+re.search("[a-z]+\d+","alex36ly18").group()#输出alex36
+re.search("[a-z]+\d+","alex36ly18").group("name")#输出alex
+
+#re模块之方法:findall、search、match（match和search方法相同）、split、sub、subn、compile
+
+re.match("\d+","58sal44")#只匹配第一个58，后面的44匹配不到
+re.match("\d+","58sal44").group()#同样是通过group方法将对象的值返回
+re.split(",","hello,abc,de")#输出["hello","abc","de"]
+re.split("[ |]","hello abc|def")
+re.sub("\d+","A","12agc")#输出Aagc；将第一个数字替换成A
+re.sub("\d+","A","12agc")#输出AAagc，将所有的数字用A替换
+re.subn("\d+","A","12agc")#输出AAagc和2，有两个进行操作替换的
+mid = re.compile("\d+")
+mid.findall("123abc")#通过compile编译的mid直接利用findall方法；输出123
+
+
+#10:logging模块
+import logging
+#通过logging.basicConfig进行参数设定
+logging.basicConfig(
+    level=logging.DEBUG,#如果将logging级别设置为debug级别，会输出下面的5条信息
+    filename="log.log",#会生成一个log.log文件存储日志，这个方法是追加模式
+    filemode="w",#通过覆盖方式而不是追加
+    format="%(asctime)s %[(lineno)d] %(message)s %(filename)s"#分别为时间、行号、打印的日志内容和运行的py文件名称
+
+)
+logging.debug("debug message")
+logging.info("info message")
+#logging级别，默认的是warning级别，warning以上级别的输出
+logging.warnings("warning message")
+logging.error("error message")
+logging.critical("critical message")
+
+
+#通过log对象来实现log日志(这种方法用的相对较多一些）
+logger=logging.getLogger()#首先创建一个logger对象
+#日志打印位置，是文件还是屏幕
+fh=logging.FileHandler("文件名和路径")#向文件发放日志，不向屏幕上发布日志
+ch=logging.StreamHandler()#向屏幕方法内容
+
+#设置日志的格式
+fm=logging.Formatter("%s(asctime)s %(message)s")#参数设定，设置日志输出格式
+fh.setFormatter(fh)
+ch.setFormatter(ch)
+
+#将日志进行追加
+logger.addHandler(fh)#然后将日志内容吸引进去，向文件中吸
+logger.addHandler(ch)#向屏幕上吸，不断的追加
+#设置log打印级别
+logger.setLevel("DEBUG")
+
+#日志打印内容方式
+logger.debug("添加需要打印的日志内容")
+logger.info()
+logger.warning()
+logger.error()
+logger.critical()
+
+#可以将上面的写成一个函数，方便在不同的场景中进行调用
+def logger():
+    logger = logging.getLogger()  # 首先创建一个logger对象
+    # 日志打印位置，是文件还是屏幕
+    fh = logging.FileHandler("文件名和路径")  # 向文件发放日志，不向屏幕上发布日志
+    ch = logging.StreamHandler()  # 向屏幕方法内容
+
+    # 设置日志的格式
+    fm = logging.Formatter("%s(asctime)s %(message)s")  # 参数设定，设置日志输出格式
+    fh.setFormatter(fh)
+    ch.setFormatter(ch)
+
+    # 将日志进行追加
+    logger.addHandler(fh)  # 然后将日志内容吸引进去，向文件中吸
+    logger.addHandler(ch)  # 向屏幕上吸，不断的追加
+    # 设置log打印级别
+    logger.setLevel("DEBUG")
+
+    return logger#返回一个logger对象
+#--------------------------------------
+#然后再具体的应用场景中拿到一个logger对象然后打印具体日志就可以
+logger=logger()#拿到上面的logger对象，然后通过下面的方法打印日志
+logger.debug("添加需要打印的日志内容")
+logger.info()
+logger.warning()
+logger.error()
+logger.critical()
+
+
+#11 configparse()模块;针对配置文件开发的模块
+#类似字典的操作，利用类似字典的语法完成
+import ConfigParser
+config = ConfigParser.ConfigParser()
+config["DEFAULT"]={
+    "ServerAliveInterval","45",
+    "Compression","yes"
+}
+with open("example.ini",'w') as f:
+    config.write(f)#对象写入到文件f中去,即将config中的内容输入到example.ini文件中去
+
+config["bitbucket.org"]={}
+config['bitbucket.org']['User']='hg'
+
+config['topsecret.server.com']={}
+topsecret=config['topsecret.server.com']
+topsecret['Host Port']='50300'
+topsecret['ForwardXll']='no'
+#----------------------------增删改查操作
+
+#----------------------------查
+config=ConfigParser.ConfigParser()
+print config.sections()
+config.read('example.ini')#读查example.ini中的内容
+print config.sections()
+
+
