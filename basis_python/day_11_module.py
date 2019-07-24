@@ -100,6 +100,8 @@ os.path.isfile("path")#如果path是一个存在的文件返回true
 os.path.join("paht1","path2")#将两部分路径进行拼接，"path1/paht2/"
 os.path.getatime(path)#返回path所指向的文件或者目录的最后存取时间
 os.path.getmtime(path)#返回path所指向的文件或者目录的最后修改是时间
+os.walk(path)#遍历path，返回一个对象，它的每个部分是一个三元组，('目录x',[目录x下的目录list],目录x下面的文件)
+for root, dirs, files in os.walk(dir,topdown)
 
 #5:json和pickle模块
 #json将所有的数据类型都转化为了字符串str类型，#json只认双引不认单引
