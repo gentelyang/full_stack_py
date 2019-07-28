@@ -52,8 +52,9 @@ list2 = ["l","y"]
 s = "".join(list2)
 
 #添加
-list1.append(5)#在后面追加,前面不需要写参数接收，l1=list1.append(5),结果时[,,,,,[5]]
-list1.extend(5)#在后面追加5，结果时[,,,,5]
+list1.append(5)#在后面追加,前面不需要写参数接收，l1=list1.append(5),结果时[,,,,,5]
+list1.extend([5])#在后面追加5，结果时[,,,,5]
+#apeend和extend不同之处是，extend添加的是一个iterate对象，不能像append一样可以添加一个数值5，但是结果是相同的；看源码
 list1.insert("下标位置",6)#在下标位置插入6
 print list1
 
