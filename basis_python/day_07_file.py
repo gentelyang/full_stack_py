@@ -39,7 +39,11 @@ os.getcwd()#获取当前.py文件的路径
 # print f6.readline()
 
 f7 = open('file','rb')
-# f7.readlines()#一次性将文件全部读出，并将其方法一个列表当中。此时会有\n这种转义字符，如果不想将转义字符打印出来可以使用read方法
+# f7.readlines()#一次性将文件全部读出，并将其方法一个列表当中。此时会有\n这种转义字符，如果不想将转义字符打印出来可以使用read方法#
+#一种常用的用于去除空行\n的方法，使用strip()
+for i in f7.readlines():
+  print i.strip('/n')#迭代输出并将\n给去除；
+
 # print f7.readlines()
 print
 print f7.read()#read会原样的输出file文件中的内容，不会输出到list列表中；
