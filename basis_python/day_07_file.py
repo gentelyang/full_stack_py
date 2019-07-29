@@ -43,6 +43,11 @@ f7 = open('file','rb')
 #一种常用的用于去除空行\n的方法，使用strip()
 for i in f7.readlines():
   print i.strip('/n')#迭代输出并将\n给去除；
+  print type(i)#这个输出的是list类型
+ for i in f7:
+  print i.strip('/n')
+  print type(i)#这个输出的是str类型
+  
 
 # print f7.readlines()
 print
