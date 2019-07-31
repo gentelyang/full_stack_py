@@ -59,6 +59,11 @@ print v6#{'k': 123, 123: 123, 'aaa': 123}
 v7 = info.setdefault("k4","123")
 
 #update()的作用是更新
-info.update("K1","更新的值")
+info.update({"原字典未有的值"："value值"})#此时相当于添加操作
+info.update({"原字典中已经有的值":"需要改变的value值"})#此时相当于改变操作
+dict1 = "{'haha":1,"hehe":2}
+info.update(dict1)#此时是将dict1中的kye-value添加到info字典中
+
+
 
 
