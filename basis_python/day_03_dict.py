@@ -64,6 +64,10 @@ info.update({"原字典中已经有的值":"需要改变的value值"})#此时相
 dict1 = "{'haha":1,"hehe":2}
 info.update(dict1)#此时是将dict1中的kye-value添加到info字典中
 
-
+#list转化为dict
+keys = ['a', 'b', 'c']
+values = [1, 2, 3]
+dictionary = dict(zip(keys, values))
+print dictionary   #{'a':1, 'b':2, 'c':3}
 
 
