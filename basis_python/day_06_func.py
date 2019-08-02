@@ -108,6 +108,7 @@ print add_func1(lambda x,y:x*y,arr,100)
 
 # 3：内置函数reduce
 reduce(lambda x,y:x*y,arr,100)
+#先将arr数组中的值两两相乘，得到120，最后再与100相乘；
 
 
 
